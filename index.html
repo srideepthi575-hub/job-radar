@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Radar — AI Career Copilot</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">◎</span>
+    <span class="brand-name">Job Radar</span>
+  </div>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="search">Search</button>
+    <button class="tab-btn" data-tab="profile">My Profile</button>
+    <button class="tab-btn" data-tab="dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="market">Market Pulse</button>
+  </nav>
+  <button id="themeToggle" class="theme-toggle" title="Toggle theme">☾</button>
+</header>
+
+<main>
+
+  <!-- SEARCH TAB -->
+  <section id="tab-search" class="tab-panel active">
+    <div class="search-hero">
+      <h1>Find the job your skills actually match.</h1>
+      <p class="hero-sub">Search live-style listings and see your AI match score instantly. Upload your resume first for personalized scores.</p>
+      <div class="search-bar">
+        <input id="searchTitle" type="text" placeholder="Job title, skill or company — e.g. Frontend Developer">
+        <input id="searchLocation" type="text" placeholder="Location — e.g. Bangalore">
+        <button id="searchBtn">Search</button>
+      </div>
+      <div class="filter-row" id="filterRow">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="match">Best AI Match</button>
+        <button class="chip" data-filter="remote">Remote</button>
+        <button class="chip" data-filter="hybrid">Hybrid</button>
+        <button class="chip" data-filter="onsite">Onsite</button>
+        <button class="chip" data-filter="internship">Internship</button>
+        <button class="chip" data-filter="fulltime">Full-Time</button>
+        <button class="chip" data-filter="salary">Highest Salary</button>
+      </div>
+    </div>
+
+    <div class="results-meta">
+      <span id="resultsCount">— jobs</span>
+      <span class="mock-note">Demo data — swap in a real job API for production</span>
+    </div>
+
+    <div id="jobList" class="job-grid"></div>
+  </section>
+
+  <!-- PROFILE TAB -->
+  <section id="tab-profile" class="tab-panel">
+    <div class="profile-layout">
+      <div class="card upload-card">
+        <h2>Build your profile</h2>
+        <p class="muted">Paste your resume text or a skill list below. We'll extract your skills and use them to score every job.</p>
+        <textarea id="resumeInput" rows="10" placeholder="Paste resume text here, e.g.:
+Frontend developer with 3 years experience.
+Skills: React, Next.js, TypeScript, Tailwind, Firebase, Git.
+Built 4 production apps..."></textarea>
+        <div class="upload-row">
+          <input type="file" id="resumeFile" accept=".txt,.pdf,.docx" />
+          <button id="analyzeBtn">Analyze Profile</button>
+        </div>
+        <p class="tiny-note">File uploads read plain text only in this demo — for PDF/DOCX parsing, wire this button to a backend extraction service.</p>
+      </div>
+
+      <div class="card profile-summary" id="profileSummary">
+        <h2>Your extracted profile</h2>
+        <div class="empty-state">No profile yet — analyze your resume to see extracted skills here.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD TAB -->
+  <section id="tab-dashboard" class="tab-panel">
+    <div class="dash-grid">
+      <div class="card stat-card">
+        <span class="stat-label">Avg Match Score</span>
+        <span class="stat-value" id="statAvgMatch">—</span>
+      </div>
+      <div class="card stat-card">
+        <span class="stat-label">Saved Jobs</span>
+        <span class="stat-value" id="statSaved">0</span>
+      </div>
+      <div class="card stat-card">
+        <span class="stat-label">Applied Jobs</span>
+        <span class="stat-value" id="statApplied">0</span>
+      </div>
+      <div class="card stat-card">
+        <span class="stat-label">Top Missing Skill</span>
+        <span class="stat-value" id="statTopGap">—</span>
+      </div>
+    </div>
+
+    <div class="dash-columns">
+      <div class="card">
+        <h2>Skill Gap Analysis</h2>
+        <p class="muted">Across every job you've viewed, here's what shows up most in "missing skills."</p>
+        <div id="gapChart" class="bar-chart"></div>
+      </div>
+      <div class="card">
+        <h2>Saved Jobs</h2>
+        <div id="savedList" class="mini-list">
+          <div class="empty-state">Nothing saved yet.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET TAB -->
+  <section id="tab-market" class="tab-panel">
+    <div class="dash-columns">
+      <div class="card">
+        <h2>Trending Skills</h2>
+        <div id="trendingSkills" class="bar-chart"></div>
+      </div>
+      <div class="card">
+        <h2>Top Hiring Companies</h2>
+        <div id="topCompanies" class="mini-list"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="jobModal" class="modal-overlay">
+  <div class="modal-card">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
